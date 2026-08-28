@@ -4,6 +4,20 @@ import { headers, cookies } from "next/headers";
 import { detectServerLanguage } from "@shared/config/i18n";
 import "@shared/styles/globals.css";
 
+const syncopate = Syncopate({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-syncopate",
+  display: "swap",
+});
+
+const unbounded = Unbounded({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-unbounded",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "INFRATECH — IT Solutions & Infrastructure",
   description:
