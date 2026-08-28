@@ -1,14 +1,9 @@
 @import "tailwindcss";
-@import "@fontsource-variable/unbounded";
-@import "@fontsource-variable/montserrat";
-@import "@fontsource/syncopate/400.css";
-@import "@fontsource/syncopate/700.css";
 
 :root {
-  --font-syncopate: "Syncopate", sans-serif;
-  --font-unbounded:
-    "Unbounded Variable", "Unbounded", "Montserrat Variable", "Montserrat", sans-serif;
-  --font-tajik: "Montserrat Variable", "Montserrat", "Unbounded Variable", "Unbounded", sans-serif;
+  --font-syncopate: var(--font-syncopate), "Syncopate", sans-serif;
+  --font-unbounded: var(--font-unbounded), "Unbounded", "Montserrat", sans-serif;
+  --font-tajik: var(--font-montserrat), "Montserrat", sans-serif;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-brand: var(--font-unbounded);
   --color-gold: #d4af37;
@@ -40,7 +35,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: var(--font-unbounded), system-ui, sans-serif;
+  font-family: var(--font-brand), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

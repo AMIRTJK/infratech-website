@@ -1,9 +1,30 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { headers, cookies } from "next/headers";
+import { Syncopate, Unbounded, Montserrat } from "next/font/google";
 import { detectServerLanguage } from "@shared/config/i18n";
 import "@shared/styles/globals.css";
 
+const syncopate = Syncopate({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-syncopate",
+  display: "swap",
+});
+
+const unbounded = Unbounded({
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-unbounded",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "INFRATECH — IT Solutions & Infrastructure",
@@ -17,7 +38,11 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const initialLang = detectServerLanguage(headerStore, cookieStore);
 
   return (
-    <html lang={initialLang} data-lang={initialLang}>
+    <html
+      lang={initialLang}
+      data-lang={initialLang}
+      className={`${syncopate.variable} ${unbounded.variable} ${montserrat.variable}`}
+    >
       <body className="bg-[#080808] text-white min-h-screen antialiased">
         {children}
       </body>
