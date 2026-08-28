@@ -3,10 +3,14 @@
 :root {
   --font-syncopate: "Syncopate", sans-serif;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-gold: #D4AF37;
+  --color-gold-light: #FFF7D6;
+  --color-gold-dark: #8F741C;
 }
 
 @theme {
   --font-brand: var(--font-syncopate);
+  --color-gold: #D4AF37;
 }
 
 html,
@@ -16,8 +20,6 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #ffffff;
-  color: #000000;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,4 +27,26 @@ body {
 
 .font-brand {
   font-family: var(--font-syncopate), sans-serif;
+}
+
+/* Золотой градиент и свечение заголовка INFRATECH (Dark Mode) */
+.gold-gradient-text {
+  background: linear-gradient(180deg, #FFF7D6 0%, #D4AF37 34%, #F7E8A6 58%, #8F741C 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(255,247,214,0.55), 0 -1px 0 rgba(143,116,28,0.7), 0 0 42px rgba(212,175,55,0.26);
+}
+
+/* Металлическая окантовка карточки (Dark Mode) */
+.chrome-card-border-dark {
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 40%, rgba(0,0,0,0.4) 60%, rgba(255,255,255,0.1) 100%);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Светлая рамка карточки (Light Mode) — лёгкая и аккуратная без тяжёлых тёмных пятен */
+.chrome-card-border-light {
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.06);
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import type { TTheme } from "@features/theme-switcher";
 import { Modal } from "@shared/ui";
 import type { ITranslation } from "@shared/config/i18n";
 import { ContactTypeTabs } from "./ContactTypeTabs";
@@ -9,12 +10,14 @@ import type { TContactType } from "../model/types";
 export interface IContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  theme?: TTheme;
   t: ITranslation;
 }
 
 export const ContactModal: React.FC<IContactModalProps> = ({
   isOpen,
   onClose,
+  theme = "dark",
   t,
 }) => {
   const [activeType, setActiveType] = useState<TContactType | null>("email");
@@ -31,17 +34,23 @@ export const ContactModal: React.FC<IContactModalProps> = ({
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
+      theme={theme}
       title={t.modalLabel}
       subtitle={t.modalHeading}
     >
       <ContactTypeTabs
         activeType={activeType}
         onSelectType={handleTypeSelect}
+        theme={theme}
         t={t}
       />
 
-      {activeType === "email" && <EmailForm t={t} onSuccess={handleClose} />}
-      {activeType === "meeting" && <MeetingForm t={t} onSuccess={handleClose} />}
+      {activeType === "email" && (
+        <EmailForm t={t} theme={theme} onSuccess={handleClose} />
+      )}
+      {activeType === "meeting" && (
+        <MeetingForm t={t} theme={theme} onSuccess={handleClose} />
+      )}
     </Modal>
   );
 };

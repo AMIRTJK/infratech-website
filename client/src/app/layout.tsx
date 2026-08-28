@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="ru" className={syncopate.variable}>
-      <body className="bg-white text-neutral-900 min-h-screen antialiased">
+      <body className="bg-[#080808] text-white min-h-screen antialiased">
         {children}
       </body>
     </html>

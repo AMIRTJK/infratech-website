@@ -2,19 +2,26 @@
 
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
+import type { TTheme } from "@features/theme-switcher";
 import { LANGUAGES, type TLangCode } from "@shared/config/i18n";
 import { useClickOutside } from "@shared/lib/hooks/useClickOutside";
 import { cn } from "@shared/lib/cn";
 import type { ILanguageSwitcherProps } from "../model/types";
 
-export const LanguageSwitcher: React.FC<ILanguageSwitcherProps> = ({
+export interface IExtendedLanguageSwitcherProps extends ILanguageSwitcherProps {
+  theme?: TTheme;
+}
+
+export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
   currentLang,
   onLanguageChange,
+  theme = "light",
   className,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDark = theme === "dark";
 
   useClickOutside(containerRef, () => setIsOpen(false), isOpen);
 
@@ -37,7 +44,12 @@ export const LanguageSwitcher: React.FC<ILanguageSwitcherProps> = ({
         onClick={handleToggle}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 hover:border-neutral-400 text-neutral-900 transition-colors duration-200 cursor-pointer font-brand text-xs uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-black"
+        className={cn(
+          "inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 cursor-pointer font-brand text-xs uppercase tracking-wider focus:outline-none",
+          isDark
+            ? "text-neutral-200 hover:bg-white/10"
+            : "text-neutral-900 hover:bg-black/5"
+        )}
       >
         <span className="relative w-5 h-3.5 shrink-0 overflow-hidden rounded-[2px] shadow-xs">
           <Image
@@ -53,7 +65,8 @@ export const LanguageSwitcher: React.FC<ILanguageSwitcherProps> = ({
         <ChevronDown
           size={14}
           className={cn(
-            "transition-transform duration-200 text-neutral-500",
+            "transition-transform duration-200",
+            isDark ? "text-neutral-400" : "text-neutral-500",
             isOpen && "rotate-180"
           )}
         />
@@ -62,7 +75,10 @@ export const LanguageSwitcher: React.FC<ILanguageSwitcherProps> = ({
       {isOpen && (
         <div
           role="listbox"
-          className="absolute right-0 mt-1.5 w-40 rounded-xl bg-white border border-neutral-200 shadow-xl py-1 z-30 animate-in fade-in zoom-in-95 duration-150"
+          className={cn(
+            "absolute right-0 mt-1.5 w-40 rounded-xl border shadow-2xl py-1 z-30 animate-in fade-in zoom-in-95 duration-150 backdrop-blur-md",
+            isDark ? "bg-[#1A1A1A] border-white/10" : "bg-white border-neutral-200"
+          )}
         >
           {LANGUAGES.map((language) => {
             const isSelected = language.code === currentLang;
@@ -74,23 +90,35 @@ export const LanguageSwitcher: React.FC<ILanguageSwitcherProps> = ({
                 aria-selected={isSelected}
                 onClick={() => handleSelect(language.code)}
                 className={cn(
-                  "w-full flex items-center gap-2.5 px-3 py-2 text-xs font-brand tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
+                  "w-full flex items-center justify-between px-3 py-2 text-xs font-brand tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
                   isSelected
-                    ? "bg-neutral-100 font-bold text-neutral-900"
+                    ? isDark
+                      ? "bg-white/8 text-white font-bold"
+                      : "bg-neutral-100 font-bold text-neutral-900"
+                    : isDark
+                    ? "text-neutral-400 hover:bg-white/5 hover:text-white"
                     : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
                 )}
               >
-                <span className="relative w-5 h-3.5 shrink-0 overflow-hidden rounded-[2px] shadow-xs">
-                  <Image
-                    src={language.flagUrl}
-                    alt={language.name}
-                    fill
-                    sizes="20px"
-                    className="object-cover"
-                    unoptimized
+                <div className="flex items-center gap-2.5">
+                  <span className="relative w-5 h-3.5 shrink-0 overflow-hidden rounded-[2px] shadow-xs">
+                    <Image
+                      src={language.flagUrl}
+                      alt={language.name}
+                      fill
+                      sizes="20px"
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </span>
+                  <span>{language.name}</span>
+                </div>
+                {isSelected && (
+                  <Check
+                    size={14}
+                    className={isDark ? "text-[#D4AF37]" : "text-black"}
                   />
-                </span>
-                <span>{language.name}</span>
+                )}
               </button>
             );
           })}
