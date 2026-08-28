@@ -78,7 +78,7 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
         <div
           role="listbox"
           className={cn(
-            "absolute right-0 mt-1.5 w-40 rounded-xl border shadow-2xl py-1 z-30 animate-in fade-in zoom-in-95 duration-150 backdrop-blur-md",
+            "absolute right-0 mt-1.5 w-40 rounded-xl border shadow-2xl overflow-hidden z-30 animate-in fade-in zoom-in-95 duration-150 backdrop-blur-md",
             isDark ? "bg-[#1A1A1A] border-white/10" : "bg-white border-neutral-200"
           )}
         >
@@ -94,7 +94,7 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
                 aria-selected={isSelected}
                 onClick={() => handleSelect(language.code)}
                 className={cn(
-                  "w-full flex items-center justify-between px-3 py-2 tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
+                  "w-full flex items-center justify-between px-3.5 py-2.5 tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
                   isTj ? "font-tajik text-[13px]" : "font-unbounded text-xs",
                   isSelected
                     ? isDark
