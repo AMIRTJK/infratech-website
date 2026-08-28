@@ -1,0 +1,47 @@
+# Зависимости
+node_modules/
+.pnp/
+.pnp.js
+
+# Сборка
+client/.next/
+client/out/
+client/build/
+server/dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Окружение (в репозитории живут только .env.example)
+.env
+.env.local
+.env.*.local
+
+# База данных SQLite (файлы данных не версионируются, миграции — версионируются)
+server/data/*.sqlite
+server/data/*.sqlite-journal
+server/data/*.sqlite-wal
+server/data/*.sqlite-shm
+server/data/*.db
+
+# Логи
+*.log
+npm-debug.log*
+logs/
+
+# Отчёты анализа и тестов
+client/.next/analyze/
+coverage/
+.lighthouseci/
+
+# Кэш инструментов
+.eslintcache
+.stylelintcache
+.turbo/
+.cache/
+
+# Редакторы и ОС
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,25 @@
+{
+  "name": "infratech-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Монорепозиторий сайта организации. В корне только оркестрация двух независимых приложений: client (Next.js) и server (Fastify). Кода приложения здесь нет.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n client,server -c cyan,magenta \"npm:dev:client\" \"npm:dev:server\"",
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "npm --prefix server run dev",
+    "build": "npm --prefix client run build && npm --prefix server run build",
+    "start": "concurrently -k -n client,server -c cyan,magenta \"npm --prefix client run start\" \"npm --prefix server run start\"",
+    "typecheck": "npm --prefix client run typecheck && npm --prefix server run typecheck",
+    "lint": "npm --prefix client run lint && npm --prefix server run lint",
+    "format": "npm --prefix client run format && npm --prefix server run format",
+    "test": "npm --prefix server run test",
+    "install:all": "npm --prefix client install && npm --prefix server install",
+    "postinstall": "npm run install:all"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
