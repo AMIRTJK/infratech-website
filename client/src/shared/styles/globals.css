@@ -25,19 +25,10 @@ html[data-lang="tj"],
   --font-brand: var(--font-tajik);
 }
 
-.font-tajik,
-html[lang="tj"] .font-brand,
-html[data-lang="tj"] .font-brand,
-[data-lang="tj"] .font-brand,
-:lang(tj) .font-brand,
-:lang(tg) .font-brand {
-  font-family: var(--font-tajik), sans-serif !important;
-  font-weight: 700;
-  font-size: 13px;
-}
-
 @theme {
   --font-brand: var(--font-brand);
+  --font-unbounded: var(--font-unbounded);
+  --font-tajik: var(--font-tajik);
   --font-logo: var(--font-syncopate);
   --color-gold: #d4af37;
 }
@@ -56,6 +47,15 @@ body {
 
 .font-brand {
   font-family: var(--font-brand), sans-serif;
+}
+
+.font-unbounded {
+  font-family: var(--font-unbounded), sans-serif;
+}
+
+.font-tajik {
+  font-family: var(--font-tajik), sans-serif;
+  font-weight: 700;
 }
 
 .font-logo {

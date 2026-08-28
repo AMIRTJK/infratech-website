@@ -45,7 +45,7 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         className={cn(
-          "inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 cursor-pointer font-brand text-xs uppercase tracking-wider focus:outline-none",
+          "inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors duration-200 cursor-pointer font-unbounded text-xs uppercase tracking-wider focus:outline-none",
           isDark
             ? "text-neutral-200 hover:bg-white/10"
             : "text-neutral-900 hover:bg-black/5"
@@ -94,8 +94,8 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
                 aria-selected={isSelected}
                 onClick={() => handleSelect(language.code)}
                 className={cn(
-                  "w-full flex items-center justify-between px-3 py-2 text-xs font-brand tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
-                  isTj && "font-tajik",
+                  "w-full flex items-center justify-between px-3 py-2 tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
+                  isTj ? "font-tajik text-[13px]" : "font-unbounded text-xs",
                   isSelected
                     ? isDark
                       ? "bg-white/8 text-white font-bold"
