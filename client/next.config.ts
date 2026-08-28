@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
+  // В репозитории несколько package-lock.json (корень-оркестратор, client, server).
+  // Без явного корня Next выбирает корневой lock-файл и предупреждает об этом на каждом старте.
+  // Скрипты всегда запускают Next из client — эта директория и есть корень приложения.
+  outputFileTracingRoot: process.cwd(),
+
   // Строгий режим типов и линта на сборке: регресс должен падать здесь, а не на проде.
   typescript: { ignoreBuildErrors: false },
   eslint: { ignoreDuringBuilds: false },
