@@ -1,83 +1,49 @@
-import { ApiRoutes } from "@shared/api/api-routes";
+import { ApiRoutes } from "@shared/api";
 import type { IContactFormData, IContactSubmitResponse } from "../model/types";
 
-const getApiBaseUrl = (): string => {
-  return process.env["NEXT_PUBLIC_API_URL"] || "http://localhost:4000";
-};
-
+/**
+ * Отправка сообщения (Email)
+ */
 export const sendContactEmail = async (
   formData: IContactFormData
 ): Promise<IContactSubmitResponse> => {
-  const url = `${getApiBaseUrl()}${ApiRoutes.contacts.sendEmail}`;
+  console.log(`[SUBMIT Email] Отправка на ${ApiRoutes.contacts.sendEmail}:`, {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    message: formData.message,
+    timestamp: new Date().toISOString(),
+  });
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-      }),
-    });
+  // Имитация небольшой сетевой задержки для проверки UI
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-    if (!response.ok) {
-      const errorData = (await response.json().catch(() => null)) as {
-        message?: string;
-      } | null;
-      throw new Error(errorData?.message || "Ошибка отправки сообщения");
-    }
-
-    const result = (await response.json()) as IContactSubmitResponse;
-    return result;
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : "Не удалось отправить сообщение";
-    return {
-      success: false,
-      message: errorMessage,
-    };
-  }
+  return {
+    success: true,
+    message: "Сообщение успешно отправлено!",
+  };
 };
 
+/**
+ * Запись на встречу (Meeting)
+ */
 export const bookMeeting = async (
   formData: IContactFormData
 ): Promise<IContactSubmitResponse> => {
-  const url = `${getApiBaseUrl()}${ApiRoutes.contacts.bookMeeting}`;
+  console.log(`[SUBMIT Meeting] Отправка на ${ApiRoutes.contacts.bookMeeting}:`, {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    dateTime: formData.dateTime,
+    message: formData.message,
+    timestamp: new Date().toISOString(),
+  });
 
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        dateTime: formData.dateTime,
-        message: formData.message,
-      }),
-    });
+  // Имитация небольшой сетевой задержки для проверки UI
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
-    if (!response.ok) {
-      const errorData = (await response.json().catch(() => null)) as {
-        message?: string;
-      } | null;
-      throw new Error(errorData?.message || "Ошибка бронирования встречи");
-    }
-
-    const result = (await response.json()) as IContactSubmitResponse;
-    return result;
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : "Не удалось забронировать встречу";
-    return {
-      success: false,
-      message: errorMessage,
-    };
-  }
+  return {
+    success: true,
+    message: "Встреча успешно запланирована!",
+  };
 };
