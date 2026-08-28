@@ -45,3 +45,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Временные / локальные папки с кодом
+darkMode/
+lightMode/

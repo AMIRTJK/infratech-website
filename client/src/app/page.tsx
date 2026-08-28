@@ -1,5 +1,7 @@
-// Заглушка корневого маршрута, чтобы dev-сервер отдавал страницу, а не ошибку.
-// Заменяется на этапе разработки frontend.
-export default function HomePage() {
-  return <main>Проект в разработке.</main>;
-}
+import { HomePage } from "@views/home";
+
+const Page = () => {
+  return <HomePage />;
+};
+
+export default Page;

@@ -1,17 +1,29 @@
-// Технический минимум для запуска dev-сервера: Next требует корневой layout.
-// Шрифты, токены темы, провайдеры и разметка появятся на этапе разработки frontend.
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Syncopate } from "next/font/google";
+import "@shared/styles/globals.css";
+
+const syncopate = Syncopate({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-syncopate",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "infratech-website",
-  description: "Сайт организации",
+  title: "INFRATECH — IT Solutions & Infrastructure",
+  description:
+    "Проектирование и разработка цифровых решений, дата-центры, IT-поддержка и аналитика для вашего бизнеса.",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="ru">
-      <body>{children}</body>
+    <html lang="ru" className={syncopate.variable}>
+      <body className="bg-white text-neutral-900 min-h-screen antialiased">
+        {children}
+      </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
