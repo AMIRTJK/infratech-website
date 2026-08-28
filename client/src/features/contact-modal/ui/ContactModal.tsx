@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { Modal } from "@shared/ui";
 import type { ITranslation } from "@shared/config/i18n";
 import { ContactTypeTabs } from "./ContactTypeTabs";

@@ -1,7 +1,8 @@
 import React from "react";
 import { LanguageSwitcher } from "@features/language-switcher";
-import { ThemeSwitcher, type TTheme } from "@features/theme-switcher";
+import { ThemeSwitcher } from "@features/theme-switcher";
 import { QrCodeBlock } from "@features/qr-contact";
+import type { TTheme } from "@shared/types";
 import type { TLangCode, ITranslation } from "@shared/config/i18n";
 import { cn } from "@shared/lib/cn";
 import { HeroBrand } from "./HeroBrand";

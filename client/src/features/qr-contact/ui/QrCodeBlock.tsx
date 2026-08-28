@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState, useEffect } from "react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { generateQrMatrix } from "../lib/qrMatrix";
 import { cn } from "@shared/lib/cn";
 

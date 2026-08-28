@@ -14,7 +14,6 @@ const API_BASE_URL =
  */
 export const apiClient = {
   get: async <T>(endpoint: string): Promise<IApiResponse<T>> => {
-    console.log(`[API GET] ${endpoint}`);
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         headers: {
@@ -32,7 +31,6 @@ export const apiClient = {
   },
 
   post: async <T, B = unknown>(endpoint: string, body: B): Promise<IApiResponse<T>> => {
-    console.log(`[API POST] ${endpoint}`, body);
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: "POST",

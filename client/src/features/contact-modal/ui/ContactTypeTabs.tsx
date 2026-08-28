@@ -1,6 +1,6 @@
 import React from "react";
 import { Mail, Calendar } from "lucide-react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { cn } from "@shared/lib/cn";
 import type { ITranslation } from "@shared/config/i18n";
 import type { TContactType } from "../model/types";

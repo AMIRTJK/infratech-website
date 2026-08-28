@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CheckCircle2, AlertCircle } from "lucide-react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { Input, Textarea, Button } from "@shared/ui";
 import type { ITranslation } from "@shared/config/i18n";
 import { cn } from "@shared/lib/cn";

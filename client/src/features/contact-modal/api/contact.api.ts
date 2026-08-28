@@ -1,4 +1,3 @@
-import { ApiRoutes } from "@shared/api";
 import type { IContactFormData, IContactSubmitResponse } from "../model/types";
 
 /**
@@ -7,14 +6,7 @@ import type { IContactFormData, IContactSubmitResponse } from "../model/types";
 export const sendContactEmail = async (
   formData: IContactFormData
 ): Promise<IContactSubmitResponse> => {
-  console.log(`[SUBMIT Email] Отправка на ${ApiRoutes.contacts.sendEmail}:`, {
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    message: formData.message,
-    timestamp: new Date().toISOString(),
-  });
-
+  void formData;
   // Имитация небольшой сетевой задержки для проверки UI
   await new Promise((resolve) => setTimeout(resolve, 500));
 
@@ -30,15 +22,7 @@ export const sendContactEmail = async (
 export const bookMeeting = async (
   formData: IContactFormData
 ): Promise<IContactSubmitResponse> => {
-  console.log(`[SUBMIT Meeting] Отправка на ${ApiRoutes.contacts.bookMeeting}:`, {
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    dateTime: formData.dateTime,
-    message: formData.message,
-    timestamp: new Date().toISOString(),
-  });
-
+  void formData;
   // Имитация небольшой сетевой задержки для проверки UI
   await new Promise((resolve) => setTimeout(resolve, 500));
 

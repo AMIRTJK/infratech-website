@@ -1,7 +1,11 @@
 @import "tailwindcss";
+@import "@fontsource-variable/unbounded";
+@import "@fontsource/syncopate/400.css";
+@import "@fontsource/syncopate/700.css";
 
 :root {
   --font-syncopate: "Syncopate", sans-serif;
+  --font-unbounded: "Unbounded Variable", "Unbounded", sans-serif;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --color-gold: #D4AF37;
   --color-gold-light: #FFF7D6;
@@ -9,7 +13,8 @@
 }
 
 @theme {
-  --font-brand: var(--font-syncopate);
+  --font-brand: var(--font-unbounded);
+  --font-logo: var(--font-syncopate);
   --color-gold: #D4AF37;
 }
 
@@ -26,6 +31,10 @@ body {
 }
 
 .font-brand {
+  font-family: var(--font-unbounded), sans-serif;
+}
+
+.font-logo {
   font-family: var(--font-syncopate), sans-serif;
 }
 

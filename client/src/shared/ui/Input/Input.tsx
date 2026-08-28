@@ -1,5 +1,5 @@
 import React from "react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { cn } from "@shared/lib/cn";
 
 export interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
