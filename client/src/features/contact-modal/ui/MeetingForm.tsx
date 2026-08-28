@@ -138,6 +138,7 @@ export const MeetingForm: React.FC<IMeetingFormProps> = ({
           value={formData.dateTime}
           onChange={handleDateTimeChange}
           theme={theme}
+          placeholder={t.labelDateTime}
           required
         />
       </div>

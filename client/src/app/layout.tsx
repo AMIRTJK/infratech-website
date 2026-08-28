@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Syncopate, Unbounded } from "next/font/google";
+import { headers, cookies } from "next/headers";
+import { detectServerLanguage } from "@shared/config/i18n";
 import "@shared/styles/globals.css";
 
 const syncopate = Syncopate({
@@ -23,9 +24,13 @@ export const metadata: Metadata = {
     "Проектирование и разработка цифровых решений, дата-центры, IT-поддержка и аналитика для вашего бизнеса.",
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const headerStore = await headers();
+  const cookieStore = await cookies();
+  const initialLang = detectServerLanguage(headerStore, cookieStore);
+
   return (
-    <html lang="ru" className={`${syncopate.variable} ${unbounded.variable}`}>
+    <html lang={initialLang} data-lang={initialLang}>
       <body className="bg-[#080808] text-white min-h-screen antialiased">
         {children}
       </body>

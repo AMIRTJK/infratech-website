@@ -7,14 +7,27 @@ import type { TTheme } from "@shared/types";
 import {
   DEFAULT_LANGUAGE_CODE,
   TRANSLATIONS,
+  detectClientLanguage,
+  saveLanguagePreference,
   type TLangCode,
 } from "@shared/config/i18n";
 import { cn } from "@shared/lib/cn";
 
-export const HomePage: React.FC = () => {
-  const [currentLang, setCurrentLang] = useState<TLangCode>(DEFAULT_LANGUAGE_CODE);
+export interface IHomePageProps {
+  initialLang?: TLangCode;
+}
+
+export const HomePage: React.FC<IHomePageProps> = ({ initialLang }) => {
+  const [currentLang, setCurrentLang] = useState<TLangCode>(
+    initialLang ?? DEFAULT_LANGUAGE_CODE
+  );
   const [theme, setTheme] = useState<TTheme>("dark");
   const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const detected = detectClientLanguage(initialLang);
+    setCurrentLang((prev) => (detected !== prev ? detected : prev));
+  }, [initialLang]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -25,8 +38,14 @@ export const HomePage: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = currentLang;
+    document.documentElement.setAttribute("data-lang", currentLang);
+  }, [currentLang]);
+
   const handleLanguageChange = (lang: TLangCode) => {
     setCurrentLang(lang);
+    saveLanguagePreference(lang);
   };
 
   const handleThemeToggle = () => {
@@ -46,6 +65,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <main
+      data-lang={currentLang}
       className={cn(
         "w-full h-screen overflow-hidden transition-colors duration-500",
         isDark
