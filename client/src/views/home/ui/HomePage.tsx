@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { HeroSection } from "@widgets/hero";
 import { ContactModal } from "@features/contact-modal";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import {
   DEFAULT_LANGUAGE_CODE,
   TRANSLATIONS,

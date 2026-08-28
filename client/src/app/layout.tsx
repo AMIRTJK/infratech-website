@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Syncopate } from "next/font/google";
 import "@shared/styles/globals.css";
-
-const syncopate = Syncopate({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-syncopate",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "INFRATECH — IT Solutions & Infrastructure",
@@ -18,7 +10,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="ru" className={syncopate.variable}>
+    <html lang="ru">
       <body className="bg-[#080808] text-white min-h-screen antialiased">
         {children}
       </body>

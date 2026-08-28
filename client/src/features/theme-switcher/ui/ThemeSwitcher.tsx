@@ -2,9 +2,10 @@
 
 import React from "react";
 import { Sun, Moon } from "lucide-react";
+import type { TTheme } from "@shared/types";
 import { cn } from "@shared/lib/cn";
 
-export type TTheme = "light" | "dark";
+export type { TTheme };
 
 export interface IThemeSwitcherProps {
   theme: TTheme;

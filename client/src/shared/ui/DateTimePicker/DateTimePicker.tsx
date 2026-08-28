@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useMemo } from "react";
 import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock } from "lucide-react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { useClickOutside } from "@shared/lib/hooks/useClickOutside";
 import { cn } from "@shared/lib/cn";
 

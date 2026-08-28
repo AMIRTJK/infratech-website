@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Check } from "lucide-react";
-import type { TTheme } from "@features/theme-switcher";
+import type { TTheme } from "@shared/types";
 import { LANGUAGES, DEFAULT_LANGUAGE, type TLangCode } from "@shared/config/i18n";
 import { useClickOutside } from "@shared/lib/hooks/useClickOutside";
 import { cn } from "@shared/lib/cn";
