@@ -1,23 +1,25 @@
 import type { ILanguageOption } from "./types";
 
+export const DEFAULT_LANGUAGE: ILanguageOption = {
+  code: "ru",
+  label: "RU",
+  name: "Русский",
+  flagUrl: "/flags/ru.svg",
+};
+
 export const LANGUAGES: readonly ILanguageOption[] = [
   {
     code: "en",
     label: "EN",
     name: "English",
-    flagUrl: "https://flagcdn.com/w40/gb.png",
+    flagUrl: "/flags/gb.svg",
   },
-  {
-    code: "ru",
-    label: "RU",
-    name: "Русский",
-    flagUrl: "https://flagcdn.com/w40/ru.png",
-  },
+  DEFAULT_LANGUAGE,
   {
     code: "tj",
     label: "TJ",
     name: "Тоҷикӣ",
-    flagUrl: "https://flagcdn.com/w40/tj.png",
+    flagUrl: "/flags/tj.svg",
   },
 ] as const;
 

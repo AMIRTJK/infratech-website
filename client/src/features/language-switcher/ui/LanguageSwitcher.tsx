@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronDown, Check } from "lucide-react";
 import type { TTheme } from "@features/theme-switcher";
-import { LANGUAGES, type TLangCode } from "@shared/config/i18n";
+import { LANGUAGES, DEFAULT_LANGUAGE, type TLangCode } from "@shared/config/i18n";
 import { useClickOutside } from "@shared/lib/hooks/useClickOutside";
 import { cn } from "@shared/lib/cn";
 import type { ILanguageSwitcherProps } from "../model/types";
@@ -26,7 +26,7 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
   useClickOutside(containerRef, () => setIsOpen(false), isOpen);
 
   const activeLanguage =
-    LANGUAGES.find((lang) => lang.code === currentLang) ?? LANGUAGES[0];
+    LANGUAGES.find((lang) => lang.code === currentLang) ?? DEFAULT_LANGUAGE;
 
   const handleSelect = (code: TLangCode) => {
     onLanguageChange(code);
