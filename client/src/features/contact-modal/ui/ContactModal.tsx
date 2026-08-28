@@ -20,7 +20,7 @@ export const ContactModal: React.FC<IContactModalProps> = ({
   theme = "dark",
   t,
 }) => {
-  const [activeType, setActiveType] = useState<TContactType | null>("email");
+  const [activeType, setActiveType] = useState<TContactType>("email");
 
   const handleClose = () => {
     onClose();
@@ -37,6 +37,7 @@ export const ContactModal: React.FC<IContactModalProps> = ({
       theme={theme}
       title={t.modalLabel}
       subtitle={t.modalHeading}
+      className="max-w-[600px]"
     >
       <ContactTypeTabs
         activeType={activeType}
