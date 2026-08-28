@@ -1,12 +1,6 @@
 {
   "brand": "INFRATECH",
-  "services": [
-    "Таҳияи сомонаҳо",
-    "Веб-дизайн",
-    "Марказҳои додаҳо",
-    "Дастгирии IT",
-    "Таҳлил"
-  ],
+  "services": ["Таҳияи сомонаҳо", "Веб-дизайн", "Марказҳои додаҳо", "Дастгирии IT", "Таҳлил"],
   "contact": "ТАМОС",
   "darkLabel": "Торик",
   "lightLabel": "Рӯшан",
@@ -15,12 +9,12 @@
   "emailTitle": "Ба мо нависед",
   "emailSubtitle": "Паём фиристед",
   "meetingTitle": "Вохӯрӣ таъин кунед",
-  "meetingSubtitle": "Занги машваратиро ба нақша гиред",
+  "meetingSubtitle": "Зангро ба нақша гиред",
   "labelName": "Ном",
   "labelEmail": "Почтаи электронӣ",
   "labelPhone": "Рақами телефон",
   "labelMessage": "Паём",
-  "labelDateTime": "Сана ва вақтро интихоб кунед",
+  "labelDateTime": "Санаро интихоб кунед",
   "placeholderName": "Номи пурраи шумо",
   "placeholderEmail": "your@email.com",
   "placeholderPhone": "+992 XX XXX XXXX",

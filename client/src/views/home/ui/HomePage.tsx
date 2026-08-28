@@ -25,6 +25,11 @@ export const HomePage: React.FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = currentLang;
+    document.documentElement.setAttribute("data-lang", currentLang);
+  }, [currentLang]);
+
   const handleLanguageChange = (lang: TLangCode) => {
     setCurrentLang(lang);
   };
@@ -46,6 +51,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <main
+      data-lang={currentLang}
       className={cn(
         "w-full h-screen overflow-hidden transition-colors duration-500",
         isDark

@@ -37,7 +37,7 @@ export const ContactModal: React.FC<IContactModalProps> = ({
       theme={theme}
       title={t.modalLabel}
       subtitle={t.modalHeading}
-      className="max-w-[600px]"
+      className="max-w-[760px]"
     >
       <ContactTypeTabs
         activeType={activeType}

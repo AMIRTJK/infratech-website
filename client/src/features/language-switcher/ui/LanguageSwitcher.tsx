@@ -61,7 +61,9 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
             unoptimized
           />
         </span>
-        <span>{activeLanguage.label}</span>
+        <span className={cn(activeLanguage.code === "tj" && "font-tajik")}>
+          {activeLanguage.label}
+        </span>
         <ChevronDown
           size={14}
           className={cn(
@@ -82,15 +84,18 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
         >
           {LANGUAGES.map((language) => {
             const isSelected = language.code === currentLang;
+            const isTj = language.code === "tj";
             return (
               <button
                 key={language.code}
                 type="button"
                 role="option"
+                lang={language.code}
                 aria-selected={isSelected}
                 onClick={() => handleSelect(language.code)}
                 className={cn(
                   "w-full flex items-center justify-between px-3 py-2 text-xs font-brand tracking-wider text-left transition-colors duration-150 cursor-pointer uppercase",
+                  isTj && "font-tajik",
                   isSelected
                     ? isDark
                       ? "bg-white/8 text-white font-bold"
@@ -111,7 +116,7 @@ export const LanguageSwitcher: React.FC<IExtendedLanguageSwitcherProps> = ({
                       unoptimized
                     />
                   </span>
-                  <span>{language.name}</span>
+                  <span className={cn(isTj && "font-tajik")}>{language.name}</span>
                 </div>
                 {isSelected && (
                   <Check

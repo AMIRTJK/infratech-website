@@ -42,7 +42,7 @@ export const Input: React.FC<IInputProps> = ({
         name={name}
         required={required}
         className={cn(
-          "w-full px-3.5 py-2.5 rounded-lg text-xs md:text-sm font-brand tracking-wide border transition-all duration-200 focus:outline-none focus:ring-1",
+          "w-full h-[42px] px-3.5 py-2.5 rounded-lg text-xs md:text-sm font-brand tracking-wide border transition-all duration-200 focus:outline-none focus:ring-1",
           isDark
             ? "bg-white/5 text-white border-white/15 placeholder:text-neutral-500 focus:border-[#D4AF37] focus:bg-white/8 focus:ring-[#D4AF37]"
             : "bg-neutral-50 text-neutral-900 border-neutral-300 placeholder:text-neutral-400 focus:border-black focus:bg-white focus:ring-black",
