@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { headers, cookies } from "next/headers";
-import { detectServerLanguage } from "@shared/config/i18n";
+import { Syncopate, Unbounded, Montserrat } from "next/font/google";
 import "@shared/styles/globals.css";
 
 const syncopate = Syncopate({
@@ -12,9 +11,16 @@ const syncopate = Syncopate({
 });
 
 const unbounded = Unbounded({
-  subsets: ["latin", "cyrillic"],
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-unbounded",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin", "cyrillic", "cyrillic-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -24,13 +30,12 @@ export const metadata: Metadata = {
     "Проектирование и разработка цифровых решений, дата-центры, IT-поддержка и аналитика для вашего бизнеса.",
 };
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
-  const headerStore = await headers();
-  const cookieStore = await cookies();
-  const initialLang = detectServerLanguage(headerStore, cookieStore);
-
+const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang={initialLang} data-lang={initialLang}>
+    <html
+      lang="ru"
+      className={`${syncopate.variable} ${unbounded.variable} ${montserrat.variable}`}
+    >
       <body className="bg-[#080808] text-white min-h-screen antialiased">
         {children}
       </body>
