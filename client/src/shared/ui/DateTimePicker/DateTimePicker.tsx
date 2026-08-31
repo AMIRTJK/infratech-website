@@ -77,7 +77,7 @@ export const DateTimePicker: React.FC<IDateTimePickerProps> = ({
   const calculateCoords = useCallback(() => {
     if (!buttonRef.current) return { top: 0, left: 0, width: 320 };
     const rect = buttonRef.current.getBoundingClientRect();
-    const dropdownWidth = rect.width;
+    const dropdownWidth = Math.max(rect.width, 280);
     const dropdownHeight = 275;
 
     let top = rect.bottom + 6;
@@ -89,7 +89,12 @@ export const DateTimePicker: React.FC<IDateTimePickerProps> = ({
       }
     }
 
-    return { top, left: rect.left, width: dropdownWidth };
+    let left = rect.left;
+    if (left + dropdownWidth > window.innerWidth - 10) {
+      left = Math.max(10, window.innerWidth - dropdownWidth - 10);
+    }
+
+    return { top, left, width: dropdownWidth };
   }, []);
 
   const handleToggle = () => {
@@ -194,8 +199,9 @@ export const DateTimePicker: React.FC<IDateTimePickerProps> = ({
   return (
     <div className={cn("flex flex-col gap-1.5 w-full text-left", className)}>
       {label && (
-        <label className={cn("text-xs font-semibold uppercase tracking-wider font-brand", isDark ? "text-neutral-400" : "text-neutral-600")}>
-          {label} {required && <span className={isDark ? "text-[#D4AF37]" : "text-red-500"}>*</span>}
+        <label className={cn("text-xs font-semibold uppercase tracking-wider font-brand flex items-center gap-1 truncate", isDark ? "text-neutral-400" : "text-neutral-600")}>
+          <span className="truncate">{label}</span>
+          {required && <span className={cn("shrink-0", isDark ? "text-[#D4AF37]" : "text-red-500")}>*</span>}
         </label>
       )}
 
@@ -204,7 +210,7 @@ export const DateTimePicker: React.FC<IDateTimePickerProps> = ({
         type="button"
         onClick={handleToggle}
         className={cn(
-          "w-full h-[42px] flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs md:text-sm font-brand tracking-wide border transition-all duration-200 cursor-pointer focus:outline-none focus:ring-1",
+          "w-full h-[42px] min-h-[42px] flex items-center justify-between px-3.5 py-2 rounded-lg text-xs md:text-sm font-brand tracking-wide border transition-all duration-200 cursor-pointer focus:outline-none focus:ring-1",
           isDark
             ? "bg-white/5 text-white border-white/15 hover:border-[#D4AF37]/50 focus:border-[#D4AF37] focus:ring-[#D4AF37]"
             : "bg-neutral-50 text-neutral-900 border-neutral-300 hover:border-black/50 focus:border-black focus:ring-black",
@@ -212,8 +218,8 @@ export const DateTimePicker: React.FC<IDateTimePickerProps> = ({
           !formattedDisplayValue && (isDark ? "text-neutral-500" : "text-neutral-400")
         )}
       >
-        <span>{formattedDisplayValue || placeholder}</span>
-        <CalendarIcon size={16} className={isDark ? "text-[#D4AF37]" : "text-neutral-500"} />
+        <span className="truncate text-left pr-2">{formattedDisplayValue || placeholder}</span>
+        <CalendarIcon size={16} className={cn("shrink-0", isDark ? "text-[#D4AF37]" : "text-neutral-500")} />
       </button>
 
       {isOpen && isMounted && coords.top > 0 && createPortal(

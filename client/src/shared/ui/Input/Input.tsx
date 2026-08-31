@@ -27,13 +27,13 @@ export const Input: React.FC<IInputProps> = ({
         <label
           htmlFor={inputId}
           className={cn(
-            "text-xs font-semibold uppercase tracking-wider font-brand",
+            "text-xs font-semibold uppercase tracking-wider font-brand flex items-center gap-1 truncate",
             isDark ? "text-neutral-400" : "text-neutral-600"
           )}
         >
-          {label}{" "}
+          <span className="truncate">{label}</span>
           {required && (
-            <span className={isDark ? "text-[#D4AF37]" : "text-red-500"}>*</span>
+            <span className={cn("shrink-0", isDark ? "text-[#D4AF37]" : "text-red-500")}>*</span>
           )}
         </label>
       )}
