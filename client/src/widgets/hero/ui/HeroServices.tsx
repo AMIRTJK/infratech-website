@@ -19,15 +19,15 @@ export const HeroServices: React.FC<IHeroServicesProps> = ({
     <nav
       aria-label="Services"
       className={cn(
-        "flex flex-wrap items-center justify-center gap-y-2 text-center max-w-4xl",
+        "flex flex-nowrap items-center justify-center text-center w-full max-w-6xl mx-auto overflow-x-auto no-scrollbar py-1",
         className
       )}
     >
       {services.map((service, index) => (
-        <span key={service} className="inline-flex items-center">
+        <span key={service} className="inline-flex items-center shrink-0">
           <span
             className={cn(
-              "px-3 sm:px-4 text-[10px] sm:text-xs font-brand tracking-[0.18em] uppercase transition-colors duration-300 cursor-default select-none",
+              "px-2 sm:px-3 md:px-4 text-[9.5px] sm:text-[11px] md:text-xs font-brand tracking-[0.12em] sm:tracking-[0.16em] md:tracking-[0.18em] uppercase transition-colors duration-300 cursor-default select-none whitespace-nowrap",
               isDark
                 ? "text-neutral-400/60 hover:text-[#D4AF37]"
                 : "text-black hover:text-black/60"
@@ -39,7 +39,7 @@ export const HeroServices: React.FC<IHeroServicesProps> = ({
             <span
               aria-hidden="true"
               className={cn(
-                "inline-block w-[1px] h-2.5 select-none",
+                "inline-block w-[1px] h-2.5 shrink-0 select-none",
                 isDark ? "bg-white/15" : "bg-black/20"
               )}
             />
