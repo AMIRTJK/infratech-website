@@ -57,7 +57,7 @@ export const QrCodeBlock: React.FC<IQrCodeBlockProps> = ({
     >
       <div
         className={cn(
-          "w-[84px] h-[84px] sm:w-[90px] sm:h-[90px] flex items-center justify-center p-1 rounded-md",
+          "w-[76px] h-[76px] sm:w-[90px] sm:h-[90px] flex items-center justify-center p-1 rounded-md",
           isDark ? "bg-[#121212]" : "bg-white"
         )}
       >
