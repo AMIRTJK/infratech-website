@@ -48,10 +48,10 @@ export const HeroSection: React.FC<IHeroSectionProps> = ({
       </div>
 
       {/* Центральный контент */}
-      <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full my-auto py-4">
+      <div className="flex flex-col items-center justify-center text-center max-w-6xl mx-auto w-full my-auto py-4">
         <HeroBrand brand={t.brand} theme={theme} />
 
-        <div className="mt-6 sm:mt-8 md:mt-10">
+        <div className="mt-6 sm:mt-8 md:mt-10 w-full flex justify-center">
           <HeroServices services={t.services} theme={theme} />
         </div>
 
