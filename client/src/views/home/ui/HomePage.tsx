@@ -18,9 +18,7 @@ export interface IHomePageProps {
 }
 
 export const HomePage: React.FC<IHomePageProps> = ({ initialLang }) => {
-  const [currentLang, setCurrentLang] = useState<TLangCode>(
-    initialLang ?? DEFAULT_LANGUAGE_CODE
-  );
+  const [currentLang, setCurrentLang] = useState<TLangCode>(initialLang ?? DEFAULT_LANGUAGE_CODE);
   const [theme, setTheme] = useState<TTheme>("dark");
   const [isContactModalOpen, setIsContactModalOpen] = useState<boolean>(false);
 
@@ -70,7 +68,7 @@ export const HomePage: React.FC<IHomePageProps> = ({ initialLang }) => {
         "w-full h-screen overflow-hidden transition-colors duration-500",
         isDark
           ? "bg-[#080808] text-white selection:bg-[#D4AF37] selection:text-black"
-          : "bg-[#FFFFFF] text-black selection:bg-black selection:text-white"
+          : "bg-[#FFFFFF] text-black selection:bg-black selection:text-white",
       )}
     >
       <HeroSection
@@ -82,12 +80,7 @@ export const HomePage: React.FC<IHomePageProps> = ({ initialLang }) => {
         t={t}
       />
 
-      <ContactModal
-        isOpen={isContactModalOpen}
-        onClose={handleCloseContact}
-        theme={theme}
-        t={t}
-      />
+      <ContactModal isOpen={isContactModalOpen} onClose={handleCloseContact} theme={theme} t={t} />
     </main>
   );
 };
