@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, CheckCircle2, AlertCircle } from "lucide-react";
 import type { TTheme } from "@shared/types";
 import { Input, Textarea, Button } from "@shared/ui";
 import type { ITranslation } from "@shared/config/i18n";
@@ -58,9 +58,9 @@ export const EmailForm: React.FC<IEmailFormProps> = ({
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center py-8 gap-2 text-center animate-in fade-in zoom-in-95 duration-200">
+      <div className="flex flex-col items-center justify-center py-12 gap-2.5 text-center animate-in fade-in zoom-in-95 duration-200 h-full min-h-[300px]">
         <CheckCircle2
-          size={40}
+          size={44}
           className={isDark ? "text-[#D4AF37]" : "text-black"}
         />
         <span
@@ -76,74 +76,107 @@ export const EmailForm: React.FC<IEmailFormProps> = ({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2.5">
-      {status === "error" && (
+    <div className="flex flex-col h-full justify-between gap-3">
+      <div className="flex items-center gap-2.5 pb-2.5 border-b border-black/8 dark:border-white/8">
         <div
           className={cn(
-            "flex items-center gap-1.5 p-2 rounded-lg border text-[11px] font-brand",
-            isDark
-              ? "bg-red-950/40 border-red-800/60 text-red-300"
-              : "bg-red-50 border-red-200 text-red-700"
+            "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
+            isDark ? "bg-[#D4AF37]/10 text-[#D4AF37]" : "bg-black/5 text-black"
           )}
         >
-          <AlertCircle size={14} className="shrink-0" />
-          <span>{errorMessage}</span>
+          <Mail size={16} />
         </div>
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        <Input
-          label={t.labelName}
-          name="name"
-          theme={theme}
-          value={formData.name}
-          onChange={handleChange}
-          placeholder={t.placeholderName}
-          required
-        />
-
-        <Input
-          label={t.labelEmail}
-          name="email"
-          type="email"
-          theme={theme}
-          value={formData.email}
-          onChange={handleChange}
-          placeholder={t.placeholderEmail}
-          required
-        />
+        <div className="flex flex-col min-w-0">
+          <h3
+            className={cn(
+              "text-xs sm:text-sm font-bold uppercase tracking-wider font-brand leading-tight",
+              isDark ? "text-neutral-100" : "text-neutral-900"
+            )}
+          >
+            {t.emailTitle}
+          </h3>
+          <p
+            className={cn(
+              "text-[10px] sm:text-[11px] font-brand tracking-normal leading-tight mt-0.5",
+              isDark ? "text-neutral-400" : "text-neutral-500"
+            )}
+          >
+            {t.emailSubtitle}
+          </p>
+        </div>
       </div>
 
-      <Input
-        label={t.labelPhone}
-        name="phone"
-        type="tel"
-        theme={theme}
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder={t.placeholderPhone}
-      />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 flex-1 justify-between">
+        {status === "error" && (
+          <div
+            className={cn(
+              "flex items-center gap-1.5 p-2 rounded-lg border text-[11px] font-brand",
+              isDark
+                ? "bg-red-950/40 border-red-800/60 text-red-300"
+                : "bg-red-50 border-red-200 text-red-700"
+            )}
+          >
+            <AlertCircle size={14} className="shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
 
-      <Textarea
-        label={t.labelMessage}
-        name="message"
-        theme={theme}
-        rows={2}
-        value={formData.message}
-        onChange={handleChange}
-        placeholder={t.placeholderMessage}
-        required
-      />
+        <div className="flex flex-col gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Input
+              label={t.labelName}
+              name="name"
+              theme={theme}
+              value={formData.name}
+              onChange={handleChange}
+              placeholder={t.placeholderName}
+              required
+            />
 
-      <Button
-        type="submit"
-        theme={theme}
-        disabled={status === "submitting"}
-        className="w-full mt-1"
-        size="md"
-      >
-        {status === "submitting" ? t.submitting : t.sendMessage}
-      </Button>
-    </form>
+            <Input
+              label={t.labelEmail}
+              name="email"
+              type="email"
+              theme={theme}
+              value={formData.email}
+              onChange={handleChange}
+              placeholder={t.placeholderEmail}
+              required
+            />
+          </div>
+
+          <Input
+            label={t.labelPhone}
+            name="phone"
+            type="tel"
+            theme={theme}
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder={t.placeholderPhone}
+          />
+
+          <Textarea
+            label={t.labelMessage}
+            name="message"
+            theme={theme}
+            rows={2}
+            value={formData.message}
+            onChange={handleChange}
+            placeholder={t.placeholderMessage}
+            required
+          />
+        </div>
+
+        <Button
+          type="submit"
+          theme={theme}
+          disabled={status === "submitting"}
+          className="w-full mt-2"
+          size="md"
+        >
+          {status === "submitting" ? t.submitting : t.sendMessage}
+        </Button>
+      </form>
+    </div>
   );
 };
