@@ -152,27 +152,25 @@ export const MeetingForm: React.FC<IMeetingFormProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <Input
-              label={t.labelPhone}
-              name="phone"
-              type="tel"
-              theme={theme}
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder={t.placeholderPhone}
-              required
-            />
+          <Input
+            label={t.labelPhone}
+            name="phone"
+            type="tel"
+            theme={theme}
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder={t.placeholderPhone}
+            required
+          />
 
-            <DateTimePicker
-              label={t.labelDateTime}
-              value={formData.dateTime}
-              onChange={handleDateTimeChange}
-              theme={theme}
-              placeholder={t.labelDateTime}
-              required
-            />
-          </div>
+          <DateTimePicker
+            label={t.labelDateTime}
+            value={formData.dateTime}
+            onChange={handleDateTimeChange}
+            theme={theme}
+            placeholder={t.labelDateTime}
+            required
+          />
 
           <Textarea
             label={t.labelMessage}
