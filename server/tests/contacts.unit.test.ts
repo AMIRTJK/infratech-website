@@ -52,6 +52,26 @@ describe("config", () => {
   });
 
   it("падает, если почта настроена частично", () => {
-    assert.throws(() => parseConfig({ SMTP_HOST: "smtp.gmail.com" }), /не полностью/);
+    assert.throws(() => parseConfig({ SMTP_HOST: "smtp.gmail.com" }), /MAIL_TO/);
+    assert.throws(() => parseConfig({ SMTP_USER: "info@infratech.tj" }), /не задан SMTP_HOST/);
+    assert.equal(parseConfig({ MAIL_TO: "info@infratech.tj" }).mail, null);
+    assert.throws(
+      () => parseConfig({ SMTP_HOST: "h", SMTP_USER: "u", MAIL_TO: "t@x.tj" }),
+      /вместе/,
+    );
+  });
+
+  it("разрешает отправку без входа и самоподписанный сертификат (Exchange)", () => {
+    const mail = parseConfig({
+      SMTP_HOST: "62.122.141.220",
+      SMTP_PORT: "25",
+      SMTP_SECURE: "false",
+      SMTP_TLS_REJECT_UNAUTHORIZED: "false",
+      MAIL_FROM: "info@infratech.tj",
+      MAIL_TO: "info@infratech.tj",
+    }).mail;
+    assert.equal(mail?.auth, null);
+    assert.equal(mail?.rejectUnauthorized, false);
+    assert.equal(mail?.port, 25);
   });
 });

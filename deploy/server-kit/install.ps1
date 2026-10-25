@@ -143,7 +143,11 @@ $envXml
 </service>
 "@
     Write-Utf8 "$InstallDir\services\$($svc.Id).xml" $xml
-    Copy-Item "$InstallDir\tools\WinSW-x64.exe" "$InstallDir\services\$($svc.Id).exe" -Force
+    # Обёртка службы не меняется между сборками; копируем только при первой установке,
+    # иначе Windows может ещё держать файл после остановки упавшей службы.
+    if (-not (Test-Path "$InstallDir\services\$($svc.Id).exe")) {
+      Copy-Item "$InstallDir\tools\WinSW-x64.exe" "$InstallDir\services\$($svc.Id).exe"
+    }
     if (-not (Get-Service -Name $svc.Id -ErrorAction SilentlyContinue)) {
       & "$InstallDir\services\$($svc.Id).exe" install | Out-Null
       if ($LASTEXITCODE -ne 0) { throw "Не удалось зарегистрировать службу $($svc.Id)" }

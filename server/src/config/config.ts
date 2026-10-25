@@ -44,6 +44,7 @@ const envSchema = z.object({
   SMTP_SECURE: z.stringbool().default(true),
   SMTP_USER: optionalText,
   SMTP_PASSWORD: optionalText,
+  SMTP_TLS_REJECT_UNAUTHORIZED: z.stringbool().default(true),
   MAIL_FROM: optionalText,
   MAIL_TO: optionalText,
   RATE_LIMIT_MAX: positiveInt.default(100),
@@ -52,18 +53,53 @@ const envSchema = z.object({
   CONTACT_RATE_LIMIT_WINDOW: z.string().trim().min(1).default("1 hour"),
 });
 
-// Без этих четырёх значений письмо уйти не может; задать часть из них — почти наверняка опечатка.
-const REQUIRED_MAIL_KEYS = ["SMTP_HOST", "SMTP_USER", "SMTP_PASSWORD", "MAIL_TO"] as const;
+// Адреса MAIL_FROM/MAIL_TO можно заполнить заранее; без SMTP_HOST ошибкой считаются только учётные данные.
+const SMTP_CREDENTIAL_KEYS = ["SMTP_USER", "SMTP_PASSWORD"] as const;
 
 export interface IMailConfig {
   host: string;
   port: number;
   secure: boolean;
-  user: string;
-  password: string;
+  /** null — отправка без входа: так Exchange принимает письма на свои ящики из внутренней сети. */
+  auth: { user: string; password: string } | null;
+  /** false — принимать самоподписанный сертификат почтового сервера (свой Exchange во внутренней сети). */
+  rejectUnauthorized: boolean;
   from: string;
   to: string;
 }
+
+type TEnvValues = z.output<typeof envSchema>;
+
+/** Почта включается адресом SMTP_HOST; остальные поля проверяются, чтобы опечатка не выключила её молча. */
+const parseMailConfig = (values: TEnvValues): IMailConfig | null => {
+  if (!values.SMTP_HOST) {
+    const filled = SMTP_CREDENTIAL_KEYS.filter((key) => values[key]);
+    if (filled.length > 0) {
+      throw new ConfigError(`Почта настроена не полностью: заполнены ${filled.join(", ")}, но не задан SMTP_HOST.`);
+    }
+    return null;
+  }
+  if (Boolean(values.SMTP_USER) !== Boolean(values.SMTP_PASSWORD)) {
+    throw new ConfigError("SMTP_USER и SMTP_PASSWORD заполняются вместе или оба остаются пустыми.");
+  }
+  const from = values.MAIL_FROM ?? values.SMTP_USER;
+  if (!values.MAIL_TO || !from) {
+    throw new ConfigError("Для отправки писем заполните MAIL_TO и MAIL_FROM (или SMTP_USER).");
+  }
+
+  return {
+    host: values.SMTP_HOST,
+    port: values.SMTP_PORT,
+    secure: values.SMTP_SECURE,
+    auth:
+      values.SMTP_USER && values.SMTP_PASSWORD
+        ? { user: values.SMTP_USER, password: values.SMTP_PASSWORD }
+        : null,
+    rejectUnauthorized: values.SMTP_TLS_REJECT_UNAUTHORIZED,
+    from,
+    to: values.MAIL_TO,
+  };
+};
 
 export interface IRateLimitConfig {
   max: number;
@@ -94,26 +130,7 @@ export const parseConfig = (env: NodeJS.ProcessEnv): IAppConfig => {
   }
   const values = result.data;
 
-  const missingMailKeys = REQUIRED_MAIL_KEYS.filter((key) => !values[key]);
-  if (missingMailKeys.length > 0 && missingMailKeys.length < REQUIRED_MAIL_KEYS.length) {
-    throw new ConfigError(
-      `Почта настроена не полностью: заполните ${missingMailKeys.join(", ")} ` +
-        `или оставьте пустыми все переменные ${REQUIRED_MAIL_KEYS.join(", ")}.`,
-    );
-  }
-
-  const mail =
-    values.SMTP_HOST && values.SMTP_USER && values.SMTP_PASSWORD && values.MAIL_TO
-      ? {
-          host: values.SMTP_HOST,
-          port: values.SMTP_PORT,
-          secure: values.SMTP_SECURE,
-          user: values.SMTP_USER,
-          password: values.SMTP_PASSWORD,
-          from: values.MAIL_FROM ?? values.SMTP_USER,
-          to: values.MAIL_TO,
-        }
-      : null;
+  const mail = parseMailConfig(values);
 
   const isProduction = values.NODE_ENV === "production";
 
