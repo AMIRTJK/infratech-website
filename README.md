@@ -77,6 +77,7 @@ npm run dev
 | [`server/PERFORMANCE.md`](server/PERFORMANCE.md) | Оптимизация производительности **backend** (`server`) |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Архитектура: структура, взаимодействие частей, конфигурация |
 | [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md) | Разбор зависимостей: что выбрано, что отклонено и почему |
+| [`docs/DEPLOY.md`](docs/DEPLOY.md) | Пошаговая установка на сервер без интернета (`deploy/`) |
 | [`docs/plans/`](docs/plans) | Дизайн-документы отдельных задач |
 
 [`CLAUDE.md`](CLAUDE.md) и [`GEMINI.md`](GEMINI.md) — указатели на `AGENTS.md` для AI-агентов; правила в них не дублируются.

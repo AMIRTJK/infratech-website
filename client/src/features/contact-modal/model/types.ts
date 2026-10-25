@@ -8,6 +8,8 @@ export interface IContactFormData {
   phone: string;
   message: string;
   dateTime: string;
+  /** Поле-ловушка для ботов: человек его не видит, поэтому у настоящей заявки оно пустое. */
+  website: string;
 }
 
 export interface IContactSubmitResponse {

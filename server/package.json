@@ -9,13 +9,14 @@
   },
   "scripts": {
     "dev": "tsx watch src/app/main.ts",
-    "build": "tsc",
+    "build": "tsc && node -e \"const fs = require('node:fs'); fs.mkdirSync('dist/db/migrations', { recursive: true }); for (const f of fs.readdirSync('src/db/migrations')) fs.copyFileSync('src/db/migrations/' + f, 'dist/db/migrations/' + f)\"",
     "start": "node dist/app/main.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "tsx --test tests/**/*.test.ts",
-    "db:migrate": "tsx src/db/migrate.ts"
+    "db:migrate": "tsx src/db/migrate.ts",
+    "requests:export": "tsx src/app/export-requests.ts"
   },
   "dependencies": {
     "fastify": "^5.6.1",

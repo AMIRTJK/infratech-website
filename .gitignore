@@ -45,3 +45,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Сборка пакета для сервера (deploy/build-package.ps1)
+deploy/.build/
+deploy/out/

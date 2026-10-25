@@ -1,0 +1,31 @@
+# Вариант с HTTPS. Как включить:
+# 1. Положите файлы сертификата в __INSTALL_DIR__/certs:
+#      infratech.tj.crt — сертификат вместе с цепочкой (PEM),
+#      infratech.tj.key — закрытый ключ (PEM).
+#    Сертификат должен покрывать оба имени: infratech.tj и www.infratech.tj.
+# 2. Замените этим файлом __INSTALL_DIR__/config/Caddyfile.
+# 3. Перезапустите службу "Infratech Proxy (Caddy)".
+
+{
+	# Сертификаты берутся из файлов, Caddy не пытается выпускать их сам,
+	# но по-прежнему перенаправляет http:// на https://.
+	auto_https disable_certs
+}
+
+infratech.tj {
+	tls __INSTALL_DIR__/certs/infratech.tj.crt __INSTALL_DIR__/certs/infratech.tj.key
+	encode zstd gzip
+
+	handle /api/* {
+		reverse_proxy 127.0.0.1:4000
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:3000
+	}
+}
+
+www.infratech.tj {
+	tls __INSTALL_DIR__/certs/infratech.tj.crt __INSTALL_DIR__/certs/infratech.tj.key
+	redir https://infratech.tj{uri} permanent
+}

@@ -6,4 +6,5 @@ export const INITIAL_FORM_DATA: IContactFormData = {
   phone: "",
   message: "",
   dateTime: "",
+  website: "",
 };

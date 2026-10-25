@@ -1,22 +1,23 @@
-// Технический минимум для запуска dev-сервера: поднять HTTP и ответить на проверку живости.
-// Сборка сервера, регистрация плагинов и модулей появятся на этапе разработки backend.
-import "dotenv/config";
-import Fastify from "fastify";
+import { ConfigError, loadConfig, type IAppConfig } from "../config/config.js";
+import { buildServer } from "./server.js";
 
-const PORT = Number(process.env.PORT ?? 4000);
-const HOST = process.env.HOST ?? "0.0.0.0";
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
+const readConfig = (): IAppConfig => {
+  try {
+    return loadConfig();
+  } catch (error) {
+    // Логгера ещё нет: пишем понятный текст напрямую и падаем на старте, а не работаем вслепую.
+    if (error instanceof ConfigError) {
+      process.stderr.write(`${error.message}\n`);
+      process.exit(1);
+    }
+    throw error;
+  }
+};
 
-const app = Fastify({
-  logger: IS_PRODUCTION
-    ? { level: process.env.LOG_LEVEL ?? "info" }
-    : { level: process.env.LOG_LEVEL ?? "info", transport: { target: "pino-pretty" } },
-});
+const config = readConfig();
+const app = await buildServer(config);
 
-app.get("/health", async () => ({ success: true, message: "ok", data: { status: "up" } }));
-
-// SIGTERM/SIGINT: не обрываем соединения на полуслове — полноценный graceful shutdown
-// (закрытие SQLite, дозапись очереди писем) добавляется вместе с этими модулями.
+// SIGINT приходит и от Ctrl+C, и от службы Windows (WinSW) при остановке: дописываем ответы и закрываем базу.
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
   process.once(signal, () => {
     void app.close().then(() => process.exit(0));
@@ -24,7 +25,7 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
 }
 
 try {
-  await app.listen({ port: PORT, host: HOST });
+  await app.listen({ port: config.port, host: config.host });
 } catch (error) {
   app.log.error(error);
   process.exit(1);

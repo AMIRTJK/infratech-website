@@ -6,6 +6,7 @@ import type { ITranslation } from "@shared/config/i18n";
 import { cn } from "@shared/lib/cn";
 import { bookMeeting } from "../api/contact.api";
 import { INITIAL_FORM_DATA } from "../model/constants";
+import { HoneypotField } from "./HoneypotField";
 import type { IContactFormData, TSubmitStatus } from "../model/types";
 
 export interface IMeetingFormProps {
@@ -127,6 +128,8 @@ export const MeetingForm: React.FC<IMeetingFormProps> = ({
             <span>{errorMessage}</span>
           </div>
         )}
+
+        <HoneypotField value={formData.website} onChange={handleChange} />
 
         <div className="flex flex-col gap-2.5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

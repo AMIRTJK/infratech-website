@@ -1,0 +1,23 @@
+# Прокси сайта: принимает посетителей на порту 80 и раздаёт запросы.
+# После правки перезапустите службу "Infratech Proxy (Caddy)".
+# Как включить HTTPS — Caddyfile.https.example и раздел про HTTPS в инструкции.
+
+{
+	# У сервера нет выхода в интернет: получить сертификат Let's Encrypt автоматически нельзя.
+	auto_https off
+}
+
+:80 {
+	encode zstd gzip
+
+	@www host www.infratech.tj
+	redir @www http://infratech.tj{uri} permanent
+
+	handle /api/* {
+		reverse_proxy 127.0.0.1:4000
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:3000
+	}
+}
